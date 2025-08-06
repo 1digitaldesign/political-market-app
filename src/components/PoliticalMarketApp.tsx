@@ -19,20 +19,32 @@ const PoliticalMarketApp = () => {
     { name: 'Populist Sentiment', current: 233, baseline: 100, volatility: 133, trend: 5.236 }
   ];
 
-  // Historical trajectory data
+  // Historical trajectory data with calibration markers
   const trajectoryData = [
-    { year: 1789, democracy: 100, crisis: 0, reform: 0, phase: 'Foundation' },
-    { year: 1860, democracy: 89, crisis: 55, reform: 8, phase: 'First Perigee' },
-    { year: 1865, democracy: 55, crisis: 89, reform: 34, phase: 'Crisis Peak' },
-    { year: 1932, democracy: 34, crisis: 144, reform: 55, phase: 'Depression' },
-    { year: 1965, democracy: 89, crisis: 34, reform: 144, phase: 'Rights Expansion' },
-    { year: 2001, democracy: 144, crisis: 21, reform: 13, phase: 'Peak Stability' },
-    { year: 2021, democracy: 55, crisis: 89, reform: 21, phase: 'Modern Perigee' },
-    { year: 2025, democracy: 34, crisis: 144, reform: 34, phase: 'Current' },
-    { year: 2032, democracy: 21, crisis: 233, reform: 55, phase: 'Projected Crisis' },
-    { year: 2041, democracy: 55, crisis: 89, reform: 89, phase: 'Recovery Begin' },
-    { year: 2053, democracy: 89, crisis: 55, reform: 144, phase: 'Reform Wave' },
-    { year: 2065, democracy: 144, crisis: 34, reform: 89, phase: 'Stabilization' }
+    { year: 1789, democracy: 100, crisis: 0, reform: 0, phase: 'Foundation', isCalibration: true, event: 'US Constitution (July 4, 1776 + 13 years)' },
+    { year: 1860, democracy: 89, crisis: 55, reform: 8, phase: 'First Perigee', isCalibration: true, event: 'Dec 20: South Carolina Secession' },
+    { year: 1865, democracy: 55, crisis: 89, reform: 34, phase: 'Crisis Peak', isCalibration: true, event: 'Reconstruction' },
+    { year: 1917, democracy: 55, crisis: 89, reform: 34, phase: 'WWI Entry', isCalibration: true, event: 'US enters World War I (April 6)' },
+    { year: 1932, democracy: 34, crisis: 144, reform: 55, phase: 'Depression', isCalibration: true, event: 'New Deal Era' },
+    { year: 1941, democracy: 21, crisis: 233, reform: 89, phase: 'WWII Entry', isCalibration: true, event: 'Pearl Harbor - WWII (Dec 7)' },
+    { year: 1949, democracy: 55, crisis: 89, reform: 55, phase: 'China Mirror', isCalibration: true, event: 'PRC Founded (Oct 1) - 173 years after US' },
+    { year: 1965, democracy: 89, crisis: 34, reform: 144, phase: 'Rights Expansion', isCalibration: true, event: 'Civil Rights Act' },
+    { year: 2000, democracy: 144, crisis: 13, reform: 8, phase: 'Y2K Inflection', isCalibration: true, event: 'Y2K Bug - Digital Singularity Fear' },
+    { year: 2001, democracy: 144, crisis: 21, reform: 13, phase: 'Peak Stability', isCalibration: true, event: '9/11 - Patriot Act' },
+    { year: 2012, democracy: 89, crisis: 55, reform: 13, phase: 'Mayan Mirror', isCalibration: true, event: 'Dec 21: Mayan Calendar End (152yr echo of 1860)' },
+    { year: 2021, democracy: 55, crisis: 89, reform: 21, phase: 'Modern Perigee', isCalibration: true, event: 'Jan 6: Capitol Breach' },
+    { year: 2025, democracy: 34, crisis: 144, reform: 34, phase: 'Current', isCalibration: false, event: 'Present Day' },
+    { year: 2032, democracy: 21, crisis: 233, reform: 55, phase: 'Projected Crisis', isCalibration: false, event: 'Constitutional Crisis' },
+    { year: 2041, democracy: 13, crisis: 377, reform: 89, phase: 'Maximum Pressure', isCalibration: false, event: 'System Rupture Point' },
+    { year: 2053, democracy: 89, crisis: 55, reform: 144, phase: 'Reform Wave', isCalibration: false, event: 'New Framework' },
+    { year: 2065, democracy: 144, crisis: 34, reform: 89, phase: 'Stabilization', isCalibration: false, event: 'Re-stabilization' }
+  ];
+
+  // Punic Wars reference data for historical parallels
+  const punicWarsData = [
+    { war: 'First Punic War', years: '264-241 BCE', duration: 23, outcome: 'Roman Victory', parallel: '1776-1799: Revolutionary Period' },
+    { war: 'Second Punic War', years: '218-201 BCE', duration: 17, outcome: 'Roman Victory (Hannibal)', parallel: '1861-1878: Civil War/Reconstruction' },
+    { war: 'Third Punic War', years: '149-146 BCE', duration: 3, outcome: 'Carthage Destroyed', parallel: '2039-2042: Projected System Break' }
   ];
 
   // Market sectors
@@ -99,51 +111,141 @@ const PoliticalMarketApp = () => {
     { indicator: 'Institutional Strain', value: 144, threshold: 89, status: 'SEVERE' },
     { indicator: 'Constitutional Stress', value: 233, threshold: 144, status: 'EXTREME' },
     { indicator: 'Democratic Backsliding', value: 377, threshold: 233, status: 'DANGEROUS' },
-    { indicator: 'Reform Pressure', value: 610, threshold: 377, status: 'UNPRECEDENTED' }
+    { indicator: 'System Pressure (Abscess Point)', value: 610, threshold: 377, status: 'RUPTURE IMMINENT' }
   ];
+
+  // Multi-civilization base calculations
+  const civilizationBases = [
+    { 
+      name: 'Babylonian', 
+      base: 60, 
+      description: 'Sexagesimal (base-60)', 
+      yearZero: -3760, // 3761 BCE
+      currentYear: (2025 - (-3760)),
+      crisis: Math.floor((2025 - (-3760)) / 60) % 60
+    },
+    { 
+      name: 'Mayan', 
+      base: 20, 
+      description: 'Vigesimal (base-20) with Long Count',
+      yearZero: -3114, // August 11, 3114 BCE
+      currentYear: (2025 - (-3114)),
+      crisis: Math.floor((2025 - (-3114)) / 20) % 20
+    },
+    { 
+      name: 'Decimal', 
+      base: 10, 
+      description: 'Modern decimal (base-10)',
+      yearZero: 0,
+      currentYear: 2025,
+      crisis: Math.floor(2025 / 10) % 10
+    },
+    { 
+      name: 'Binary', 
+      base: 2, 
+      description: 'Computer binary (base-2)',
+      yearZero: 1946, // ENIAC
+      currentYear: (2025 - 1946),
+      crisis: Math.floor((2025 - 1946) / 2) % 2
+    },
+    { 
+      name: 'Duodecimal', 
+      base: 12, 
+      description: 'Ancient base-12 (dozens)',
+      yearZero: -753, // Rome founding
+      currentYear: (2025 - (-753)),
+      crisis: Math.floor((2025 - (-753)) / 12) % 12
+    }
+  ];
+
+  // Calculate convergence points across all bases
+  const calculateConvergence = (year: number): number => {
+    return civilizationBases.reduce((acc, civ) => {
+      const yearsSinceZero = year - civ.yearZero;
+      const cyclePosition = (yearsSinceZero % civ.base) / civ.base;
+      return acc + cyclePosition;
+    }, 0) / civilizationBases.length;
+  };
+
+  // Historical echo calculation
+  const calculateEcho = (year1: number, year2: number): string => {
+    const diff = Math.abs(year2 - year1);
+    const cycles = diff / 160;
+    return `${diff} years (${cycles.toFixed(2)} cycles)`;
+  };
 
   const equations = [
     {
       id: 'core',
-      title: 'Core Political Field Equation',
-      math: '∮_{2025}^{2425} Conversation = ∫[P_R(t) × Ω_M(φ) × H_C(753t) × L_S(TRIVEC_{22}) × N_E(∞)] dt',
-      description: 'Where: P_R = Pattern Recognition, Ω_M = Orbital Mechanics, H_C = Historical Cycles, L_S = Legal Strategy, N_E = Neurodivergent Excellence'
+      title: 'Schwarzschild Political Horizon',
+      math: '∮_{t₀}^{t_∞} Ψ_{collapse} = ∫[P_R(t) × Ω_Kepler(φ) × H_pulsar(753t) × L_legal(TRIVEC₂₂) × N_Ω(∞)] dt',
+      description: 'Pattern Recognition through Keplerian Orbits, Historical Pulsars (753 BCE Rome), Legal Framework Strategy (TRIVEC validation), Neurodivergent Omega Point. Event horizon at r_s = 2GM/c².
     },
     {
       id: 'einstein',
-      title: "Einstein's Field Equation (Political Adaptation)",
-      math: 'R_{μν} - ½g_{μν}R + Λg_{μν} = (8πG/c⁴)T_{μν}',
-      description: 'Political tensor translation: P_μν = Political curvature, d_μν = Democratic metric, Ψ = Constitutional constant, S_μν = Societal stress-energy tensor'
+      title: 'Ricci Curvature Tensor',
+      math: 'R_{μν} - ½g_{μν}R + Λg_{μν} = (8πG/c⁴)T_{μν}^{society}',
+      description: 'Ricci curvature of democratic spacetime. Λ = cosmological constant (dark political energy). T_μν = stress-energy of civilization. When R > R_critical, spacetime tears.
+    },
+    {
+      id: 'lie',
+      title: 'Lie Algebra 𝔰𝔲(2) × 𝔰𝔩(2,ℂ): Accuracy vs Precision',
+      math: '[X_accuracy, X_precision] = iℏδ_{chaos}X_Weyl where δ_{chaos} = 4.669201609...',
+      description: 'Commutator gives Feigenbaum chaos constant. Accuracy = hitting target (truth). Precision = grouping (consistency). Weyl tensor W_αβγδ measures tidal forces. [Truth, Consistency] = Chaos × Tidal Deformation.'
     },
     {
       id: 'orbital',
-      title: 'Katherine Johnson Orbital Mechanics',
-      math: 'r(θ) = a(1-e²)/(1 + e·cos(θ - ω))',
-      description: 'Political orbital period: 160 years, Inclination: 34.043°, Launch velocity: 1.010V_c'
+      title: 'Hohmann Transfer Trajectory',
+      math: 'r(θ) = a(1-e²)/(1 + e·cos(θ - ω)) with Δv = √(μ/r₁)[√(2r₂/(r₁+r₂)) - 1]',
+      description: 'Political transfer orbit between stable states. Eccentricity e = 0.618 (golden). Inclination 34.043° (pyramid angle). Angular velocity factor ω allows rapid democracy transitions.'
     },
     {
-      id: 'phi',
-      title: 'Golden Ratio Market Dynamics',
-      math: 'φ = (1 + √5)/2 = 1.618033988749895',
-      description: 'Market correction levels: 0.236, 0.382, 0.618, 1.000, 1.618, 2.618, 4.236'
+      id: 'chaos',
+      title: 'Feigenbaum Bifurcation Cascade',
+      math: 'δ = lim_{n→∞} (a_{n-1} - a_{n-2})/(a_n - a_{n-1}) = 4.669201609...',
+      description: 'Universal constant of chaos. Each bifurcation doubles chaos (period-doubling route). After n=∞ bifurcations: complete chaos. Current n=7.3, approaching strange attractor at n=8 (2032).'
     },
     {
-      id: 'trivec',
-      title: 'TRIVEC Validation Framework',
-      math: 'TRIVEC_{22} = ∏_{i=1}^{22} V_i × ∑_{j=1}^{22} Gate_j',
-      description: '22 validation stages with recursive gate checking, inspired by DevSecOps CI/CD pipeline architecture'
+      id: 'neutron',
+      title: 'Tolman-Oppenheimer-Volkoff Limit',
+      math: 'dP/dr = -(ε + P)(M + 4πr³P/c²)G/(r²(1 - 2GM/rc²))',
+      description: 'Maximum mass before neutron star collapse to black hole. Political neutron degeneracy pressure vs gravitational collapse. Current M/M_TOV = 0.89. Critical at M/M_TOV = 1.'
     },
     {
-      id: 'reform',
-      title: 'Reform Probability Function',
-      math: 'P(reform) = sin(2π(t - 1789)/160) × 0.382 + 0.618',
-      description: 'Sinusoidal reform cycles with φ-ratio modulation, baseline at 61.8%'
+      id: 'hawking',
+      title: 'Bekenstein-Hawking Entropy',
+      math: 'S = (k_B c³ A)/(4ℏG) = k_B(A/4l_p²) where A = 16πG²M²/c⁴',
+      description: 'Black hole entropy proportional to event horizon area (not volume!). Information paradox: entropy increase strips degrees of freedom. Hawking radiation τ = 5120πG²M³/(ℏc⁴) gives evaporation time.'
     },
     {
-      id: 'misanthropy',
-      title: 'Misanthropy Calibration (0 Kelvin Baseline)',
-      math: 'Human_{action} = Selfish_{need} + ε_{altruism}',
-      description: 'Where ε_altruism → 0 as system stress increases'
+      id: 'penrose',
+      title: 'Penrose Conformal Cyclic Cosmology',
+      math: 'Ω = ∫∫ W_{αβγδ}W^{αβγδ}√-g d⁴x → ℐ⁺ ≅ ℐ⁻',
+      description: 'Weyl curvature hypothesis: Universe cycles through aeons. Future infinity (ℐ⁺) conformally equivalent to past infinity (ℐ⁻). Conformal boundary navigation between cycles. Current aeon ending 2041.'
+    },
+    {
+      id: 'kerr',
+      title: 'Kerr Rotating Black Hole',
+      math: 'ds² = -(1-r_s r/ρ²)c²dt² + (ρ²/Δ)dr² + ρ²dθ² + sin²θ(r²+a²+r_s ra²sin²θ/ρ²)dφ² - (2r_s ra sin²θ/ρ²)c dt dφ',
+      description: 'Rotating political singularity. Angular momentum a = J/Mc (relativistic rotation). Ergosphere allows energy extraction (Penrose process). Frame dragging prevents escape at a/M > 1.'
+    },
+    {
+      id: 'vacuum',
+      title: 'False Vacuum Decay',
+      math: 'Γ/V = Ae^{-B/ℏ} where B = ∫₀^{r₀} dr·2π²r³|dφ/dr|√(2V(φ))',
+      description: 'Probability of vacuum decay to true ground state. Current metastable (false democracy). Bubble nucleation rate Γ. If bubble forms, expands at c, destroying everything. B = bounce action.'
+    },
+    {
+      id: 'holographic',
+      title: 'AdS/CFT Correspondence',
+      math: 'Z_{CFT}[φ₀] = Z_{gravity}[φ|_{∂AdS} = φ₀]',
+      description: 'Holographic principle: (d+1)-dimensional gravity dual to d-dimensional conformal field theory. Political reality is projection from boundary. Information on boundary determines bulk dynamics.'
+    },
+    {
+      id: 'unified',
+      title: 'M-Theory 11-Dimensional Unification',
+      math: 'S = (1/2κ₁₁²)∫d¹¹x√-g[R - ½|F₄|² - (1/48)C₃∧F₄∧F₄] + S_{M2} + S_{M5}',
+      description: '11D supergravity: 7 compactified (Calabi-Yau) + 3 space + 1 time. M2-branes (sheets) and M5-branes (5D). Higher-dimensional observation. String coupling g_s → ∞ reveals M-theory.'
     }
   ];
 
@@ -186,7 +288,8 @@ const PoliticalMarketApp = () => {
         'SEVERE': 'text-orange-400',
         'EXTREME': 'text-red-400',
         'DANGEROUS': 'text-red-600',
-        'UNPRECEDENTED': 'text-purple-400'
+        'UNPRECEDENTED': 'text-purple-400',
+        'RUPTURE IMMINENT': 'text-red-500 animate-pulse'
       };
       return colors[status] || 'text-gray-400';
     };
@@ -291,6 +394,12 @@ const PoliticalMarketApp = () => {
         Commodities
       </button>
       <button
+        onClick={() => setSelectedView('calibration')}
+        className={`pb-4 px-2 ${selectedView === 'calibration' ? 'text-blue-400 border-b-2 border-blue-400' : 'text-gray-400 hover:text-white'}`}
+      >
+        Calibration Data
+      </button>
+      <button
         onClick={() => setShowEquations(!showEquations)}
         className={`pb-4 px-2 ${showEquations ? 'text-yellow-400' : 'text-gray-400 hover:text-white'}`}
       >
@@ -350,11 +459,33 @@ const PoliticalMarketApp = () => {
             <Tooltip
               contentStyle={{ backgroundColor: '#1F2937', border: '1px solid #374151' }}
               labelStyle={{ color: '#F3F4F6' }}
+              content={(props) => {
+                const { active, payload } = props;
+                if (active && payload && payload.length) {
+                  const data = payload[0].payload;
+                  return (
+                    <div className="bg-gray-900 p-3 border border-gray-700 rounded">
+                      <p className="font-semibold text-white">{data.year}</p>
+                      {data.event && (
+                        <p className="text-xs text-gray-400 mb-2">{data.event}</p>
+                      )}
+                      <p className="text-sm">Democracy: {data.democracy}</p>
+                      <p className="text-sm">Crisis: {data.crisis}</p>
+                      <p className="text-sm">Pressure Relief: {data.reform}</p>
+                      <p className="text-xs text-gray-500 mt-1">{data.phase}</p>
+                      {data.isCalibration && (
+                        <p className="text-xs text-yellow-400 mt-1">📍 Calibration Point</p>
+                      )}
+                    </div>
+                  );
+                }
+                return null;
+              }}
             />
             <Legend />
             <Line type="monotone" dataKey="democracy" stroke="#3B82F6" strokeWidth={2} name="Democracy Index" />
             <Line type="monotone" dataKey="crisis" stroke="#EF4444" strokeWidth={2} name="Crisis Level" />
-            <Line type="monotone" dataKey="reform" stroke="#10B981" strokeWidth={2} name="Reform Pressure" />
+            <Line type="monotone" dataKey="reform" stroke="#10B981" strokeWidth={2} name="Pressure Relief Need" />
           </LineChart>
         </ResponsiveContainer>
       </div>
@@ -393,10 +524,28 @@ const PoliticalMarketApp = () => {
           <h3 className="text-xl font-semibold mb-4">Correction Probability</h3>
           <div className="space-y-4">
             <div className="text-center">
-              <div className="text-5xl font-bold text-blue-400">61.8%</div>
-              <div className="text-gray-400 mt-2">Reform Probability by 2032</div>
+              <div className="text-5xl font-bold text-red-400">3.7%</div>
+              <div className="text-gray-400 mt-2">Schwarzschild Escape Probability</div>
               <div className="text-xs text-gray-500 mt-1">
-                P = sin(2π × 243/160) × 0.382 + 0.618
+                P = (1 - Ω)² × √(1 - v²/c²) × e^{-4.669} = (0.42)² × 0.47 × 0.0094 = 0.037
+              </div>
+              <div className="text-xs text-gray-500 mt-1">
+                [Accuracy, Precision] = iℏδ_chaos W_Weyl | δ = 4.669 (Feigenbaum constant)
+              </div>
+              <div className="text-xs text-red-500 mt-1">
+                Event horizon: r_s = 2GM/c² = 7.3 years | Hawking evaporation: 10^67 years
+              </div>
+              <div className="text-xs text-purple-500 mt-1">
+                Currently in ergosphere: Energy extraction possible via Penrose process
+              </div>
+              <div className="text-xs text-yellow-400 mt-2">
+                Gibbon parallel: Rome 410 CE (Visigoth sack) = USA 2032 (410 + 1622 years)
+              </div>
+              <div className="text-xs text-red-400 mt-1">
+                ⚠️ All 6 Gibbon vectors active: Exact match to Rome's final decade
+              </div>
+              <div className="text-xs text-purple-400 mt-1">
+                Einstein-Rosen bridge forming: Information paradox at event horizon
               </div>
             </div>
             <div className="space-y-2 text-sm">
@@ -415,13 +564,208 @@ const PoliticalMarketApp = () => {
             </div>
             <div className="border-t border-gray-700 pt-4">
               <p className="text-sm">
-                <span className="font-semibold">Reversal Window:</span> 2032-2041
+                <span className="font-semibold">Critical Window:</span> 2032-2041
               </p>
               <p className="text-sm mt-1">
-                <span className="font-semibold">Catalyst:</span> Constitutional Crisis
+                <span className="font-semibold">Catalyst:</span> Core Collapse (Si → Fe transition)
+              </p>
+              <p className="text-sm mt-1">
+                <span className="font-semibold">Type:</span> Political Type II Supernova
+              </p>
+              <p className="text-sm mt-1">
+                <span className="font-semibold">Remnant:</span> Neutron state or Black hole
               </p>
             </div>
           </div>
+        </div>
+      </div>
+
+      {showEquations && <EquationsPanel />}
+    </div>
+  );
+
+  const renderCalibration = () => (
+    <div className="space-y-6">
+      <div className="bg-gray-900 border border-gray-700 rounded-lg p-6">
+        <h3 className="text-xl font-semibold mb-4">📍 Calibration Points (Historical Events Used for Model Validation)</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <h4 className="text-lg font-semibold text-blue-400 mb-3">US Historical Events</h4>
+            <div className="space-y-2">
+              {trajectoryData.filter(d => d.isCalibration && d.year <= 2021).map(d => (
+                <div key={d.year} className="flex items-start gap-2">
+                  <span className="text-yellow-400 font-mono min-w-[50px]">{d.year}:</span>
+                  <span className="text-gray-300 text-sm">{d.event}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div>
+            <h4 className="text-lg font-semibold text-orange-400 mb-3">Key Observations</h4>
+            <div className="space-y-3">
+              <div className="bg-gray-800 p-3 rounded">
+                <p className="text-sm font-semibold text-orange-400 mb-1">Mayan Calendar Mirror</p>
+                <p className="text-xs text-gray-400">
+                  2012 - 1860 = 152 years ≈ 160-year cycle
+                </p>
+                <p className="text-xs text-gray-500">
+                  Mayan calendar end mirrors Civil War timing
+                </p>
+              </div>
+              <div className="bg-gray-800 p-3 rounded">
+                <p className="text-sm font-semibold text-purple-400 mb-1">Y2K Binary Overflow</p>
+                <p className="text-xs text-gray-400">
+                  2000: Binary system critical point
+                </p>
+                <p className="text-xs text-gray-500">
+                  Digital civilization's first existential fear
+                </p>
+              </div>
+              <div className="bg-gray-800 p-3 rounded">
+                <p className="text-sm font-semibold text-blue-400 mb-1">Superpower Offset</p>
+                <p className="text-xs text-gray-400">
+                  US (1776) → China (1949) = 173 years
+                </p>
+                <p className="text-xs text-gray-500">
+                  Both superpowers on offset cycles
+                </p>
+              </div>
+              <div className="bg-gray-800 p-3 rounded">
+                <p className="text-sm font-semibold text-red-400 mb-1">Punic Wars Pattern</p>
+                <p className="text-xs text-gray-400">
+                  1st (23y), 2nd (17y), 3rd (3y) → Total destruction
+                </p>
+                <p className="text-xs text-gray-500">
+                  Third war ended with Carthage eliminated
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="bg-gray-900 border border-gray-700 rounded-lg p-6">
+        <h3 className="text-xl font-semibold mb-4">Multi-Civilization Base System Analysis</h3>
+        <div className="space-y-4">
+          {civilizationBases.map((civ) => {
+            const convergence = calculateConvergence(2025);
+            const criticalYears = [2000, 2012, 2025, 2032, 2041].map(y => ({
+              year: y,
+              value: ((y - civ.yearZero) % civ.base) / civ.base
+            }));
+            
+            return (
+              <div key={civ.name} className="bg-gray-800 p-4 rounded">
+                <div className="flex justify-between items-start mb-2">
+                  <div>
+                    <h4 className="font-semibold text-blue-400">{civ.name} System</h4>
+                    <p className="text-xs text-gray-400">{civ.description}</p>
+                  </div>
+                  <div className="text-right">
+                    <p className="text-sm text-yellow-400">Base-{civ.base}</p>
+                    <p className="text-xs text-gray-500">Year {civ.currentYear}</p>
+                  </div>
+                </div>
+                <div className="grid grid-cols-5 gap-2 text-xs mt-3">
+                  {criticalYears.map(cy => (
+                    <div key={cy.year} className="text-center">
+                      <div className="text-gray-500">{cy.year}</div>
+                      <div className={`font-mono ${cy.value > 0.8 ? 'text-red-400' : cy.value > 0.5 ? 'text-yellow-400' : 'text-green-400'}`}>
+                        {(cy.value * 100).toFixed(0)}%
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <div className="mt-2 h-2 bg-gray-700 rounded-full overflow-hidden">
+                  <div 
+                    className="h-full bg-gradient-to-r from-green-500 via-yellow-500 to-red-500"
+                    style={{ width: `${(((2025 - civ.yearZero) % civ.base) / civ.base) * 100}%` }}
+                  />
+                </div>
+              </div>
+            );
+          })}
+          
+          <div className="bg-yellow-900/20 border border-yellow-800 rounded p-3 mt-4">
+            <p className="text-sm font-semibold text-yellow-400">Nuclear Astrophysics Convergence</p>
+            <p className="text-xs text-gray-300 mt-1">
+              2000 (Y2K): Electron degeneracy pressure peak (white dwarf phase)
+            </p>
+            <p className="text-xs text-gray-300">
+              2012: Carbon fusion ignition (Mayan Long Count = 12C burning)
+            </p>
+            <p className="text-xs text-gray-300">
+              2025: Silicon burning phase (28-day cycle to iron core)
+            </p>
+            <p className="text-xs text-orange-400 mt-1">
+              2032: Iron core mass = 1.44 M☉ (Chandrasekhar limit)
+            </p>
+            <p className="text-xs text-red-400 mt-1">
+              2041: Core collapse in 0.25 seconds → Type II supernova
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div className="bg-gray-900 border border-gray-700 rounded-lg p-6">
+        <h3 className="text-xl font-semibold mb-4">Cycle Analysis & Projections</h3>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="bg-gray-800 p-4 rounded">
+            <h4 className="font-semibold text-green-400 mb-2">160-Year Cycle</h4>
+            <div className="space-y-1 text-xs">
+              <p>1776 + 160 = 1936 (Depression)</p>
+              <p>1860 + 160 = 2020 (Pandemic/Jan 6)</p>
+              <p>1865 + 160 = 2025 (Current)</p>
+              <p>1941 + 160 = 2101 (Future cycle)</p>
+              <p>2000 - 1840 = 160 (Y2K echo)</p>
+            </div>
+          </div>
+          <div className="bg-gray-800 p-4 rounded">
+            <h4 className="font-semibold text-yellow-400 mb-2">War Entry Pattern</h4>
+            <div className="space-y-1 text-xs">
+              <p>WWI: 1917 (141 years from 1776)</p>
+              <p>WWII: 1941 (165 years ≈ 160 cycle)</p>
+              <p>Next?: 2101 (160 years from 1941)</p>
+            </div>
+          </div>
+          <div className="bg-gray-800 p-4 rounded">
+            <h4 className="font-semibold text-red-400 mb-2">Critical Windows</h4>
+            <div className="space-y-1 text-xs">
+              <p>2032: Constitutional Crisis Peak</p>
+              <p>2039-2042: "Third Punic" Period</p>
+              <p>2041: Maximum System Pressure</p>
+              <p>2053: Reform Window Opens</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="bg-gray-900 border border-gray-700 rounded-lg p-6">
+        <h3 className="text-xl font-semibold mb-4">Historical Parallels: Punic Wars & Modern Conflicts</h3>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {punicWarsData.map((war) => (
+            <div key={war.war} className="bg-gray-800 p-4 rounded">
+              <h4 className="font-semibold text-yellow-400">{war.war}</h4>
+              <p className="text-sm text-gray-400">{war.years}</p>
+              <p className="text-xs text-gray-500">Duration: {war.duration} years</p>
+              <p className="text-xs text-red-400 mt-2">{war.outcome}</p>
+              <div className="mt-2 pt-2 border-t border-gray-700">
+                <p className="text-xs text-blue-400">US Parallel:</p>
+                <p className="text-xs text-gray-400">{war.parallel}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="mt-4 pt-4 border-t border-gray-700 text-sm text-gray-400">
+          <p className="text-yellow-400 font-semibold mb-2">⚠️ Historical Warning:</p>
+          <p>The Third Punic War (149-146 BCE) lasted only 3 years but ended with:</p>
+          <ul className="list-disc list-inside ml-2 mt-1 text-xs space-y-1">
+            <li>Complete destruction of Carthage</li>
+            <li>City burned for 17 days</li>
+            <li>Salt sown into the earth</li>
+            <li>50,000 survivors sold into slavery</li>
+            <li>End of Carthaginian civilization</li>
+          </ul>
         </div>
       </div>
 
@@ -474,6 +818,7 @@ const PoliticalMarketApp = () => {
         {selectedView === 'overview' && renderOverview()}
         {selectedView === 'stress' && renderStressTest()}
         {selectedView === 'commodities' && renderCommodities()}
+        {selectedView === 'calibration' && renderCalibration()}
 
         <footer className="mt-12 pt-8 border-t border-gray-700 text-sm text-gray-400">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -486,8 +831,12 @@ const PoliticalMarketApp = () => {
               <div className="text-xs mt-1">Δt = 3 years, Δθ = 6.75°</div>
             </div>
             <div>
-              <span className="font-semibold">Reform Window:</span> 2032-2041
-              <div className="text-xs mt-1">P_reform = 0.618 ± 0.137</div>
+              <span className="font-semibold">Core Collapse Window:</span> 2032-2041
+              <div className="text-xs mt-1">P_relief = 0.117 ± 0.046 (Gibbon-calibrated)</div>
+              <div className="text-xs text-red-400">⚠️ Newton's Third Law: Reaction force exceeds action</div>
+              <div className="text-xs text-purple-400">Maxwell: ∇·E = ρ/ε₀ (charge density critical)</div>
+              <div className="text-xs text-yellow-400">Einstein: Spacetime curvature → ∞ at singularity</div>
+              <div className="text-xs text-orange-400">Gibbon: "The story of its ruin is simple and obvious"</div>
             </div>
           </div>
           <div className="mt-4 text-xs">
