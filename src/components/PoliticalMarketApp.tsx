@@ -176,76 +176,76 @@ const PoliticalMarketApp = () => {
 
   const equations = [
     {
-      id: 'core',
-      title: 'Schwarzschild Political Horizon',
-      math: '∮_{t₀}^{t_∞} Ψ_{collapse} = ∫[P_R(t) × Ω_Kepler(φ) × H_pulsar(753t) × L_legal(TRIVEC₂₂) × N_Ω(∞)] dt',
-      description: 'Pattern Recognition through Keplerian Orbits, Historical Pulsars (753 BCE Rome), Legal Framework Strategy (TRIVEC validation), Neurodivergent Omega Point. Event horizon at r_s = 2GM/c².
+      id: 'babylonian_torah',
+      title: 'Babylonian-Jewish Temporal Horizon (Base-60)',
+      math: '∮_{Tishrei}^{Elul} Ψ_{Torah} = ∫[Ψ_613(mitzvot) × Ω_Kabbalah(Sefirot₁₀) × H_Talmud(60t) × L_Halakha(SHULCHAN) × N_Ayn(∞)] dt',
+      description: 'Torah cycle through 613 commandments, Kabbalistic Sefirot (10 emanations), Talmudic sexagesimal time cycles, Halakhic legal framework (Shulchan Aruch), reaching the infinite light (Ayn Sof). Event horizon at sacred boundary.'
     },
     {
-      id: 'einstein',
-      title: 'Ricci Curvature Tensor',
-      math: 'R_{μν} - ½g_{μν}R + Λg_{μν} = (8πG/c⁴)T_{μν}^{society}',
-      description: 'Ricci curvature of democratic spacetime. Λ = cosmological constant (dark political energy). T_μν = stress-energy of civilization. When R > R_critical, spacetime tears.
+      id: 'mayan_popol',
+      title: 'Mayan Popol Vuh Curvature (Base-20)',
+      math: 'R_{Hunab} - ½g_{Ku}R + Λ_{Xibalba} = (20π·Kukulkan/c⁴)T_{Baktun}^{society}',
+      description: 'Curvature of cosmic order through Hunab Ku (One Giver of Movement). Λ_Xibalba = underworld constant (dark spiritual energy). T_Baktun = stress-energy of Long Count cycles. When R > Feathered Serpent limit, reality shifts to Xibalba.'
     },
     {
-      id: 'lie',
-      title: 'Lie Algebra 𝔰𝔲(2) × 𝔰𝔩(2,ℂ): Accuracy vs Precision',
-      math: '[X_accuracy, X_precision] = iℏδ_{chaos}X_Weyl where δ_{chaos} = 4.669201609...',
-      description: 'Commutator gives Feigenbaum chaos constant. Accuracy = hitting target (truth). Precision = grouping (consistency). Weyl tensor W_αβγδ measures tidal forces. [Truth, Consistency] = Chaos × Tidal Deformation.'
+      id: 'hindu_dharma',
+      title: 'Vedic Dharma Algebra: Satya vs Rta (Base-10)',
+      math: '[X_Satya, X_Rta] = iℏδ_{Maya}X_Brahman where δ_{Maya} = 4.669201609...',
+      description: 'Commutator reveals Maya (illusion) constant from Upanishads. Satya = ultimate truth (Brahman). Rta = cosmic order (dharmic consistency). Brahman tensor measures universal forces. [Truth, Order] = Illusion × Cosmic Deformation per Bhagavad Gita 2.47.'
     },
     {
-      id: 'orbital',
-      title: 'Hohmann Transfer Trajectory',
-      math: 'r(θ) = a(1-e²)/(1 + e·cos(θ - ω)) with Δv = √(μ/r₁)[√(2r₂/(r₁+r₂)) - 1]',
-      description: 'Political transfer orbit between stable states. Eccentricity e = 0.618 (golden). Inclination 34.043° (pyramid angle). Angular velocity factor ω allows rapid democracy transitions.'
+      id: 'binary_iching',
+      title: 'I Ching Binary Transfer Trajectory (Base-2)',
+      math: 'r(θ) = Tao(1-Yin²)/(1 + Yang·cos(θ - Wu_Wei)) with Δv = √(Te/Qi₁)[√(2Qi₂/(Qi₁+Qi₂)) - 1]',
+      description: 'Political Wu Wei (effortless action) orbit between Yin-Yang states per Tao Te Ching. Eccentricity follows golden mean of Dao. Inclination matches I Ching hexagram angles. Angular velocity Wu_Wei enables natural societal transitions through Te (virtue).'
     },
     {
-      id: 'chaos',
-      title: 'Feigenbaum Bifurcation Cascade',
-      math: 'δ = lim_{n→∞} (a_{n-1} - a_{n-2})/(a_n - a_{n-1}) = 4.669201609...',
-      description: 'Universal constant of chaos. Each bifurcation doubles chaos (period-doubling route). After n=∞ bifurcations: complete chaos. Current n=7.3, approaching strange attractor at n=8 (2032).'
+      id: 'roman_fate',
+      title: 'Roman Fatum Bifurcation Cascade (Base-12)',
+      math: 'δ_{Fatum} = lim_{n→∞} (Aeneas_{n-1} - Sibylla_{n-2})/(Imperium_n - Augustus_{n-1}) = 4.669201609...',
+      description: 'Universal constant of Roman fate per Aeneid Book VI. Each bifurcation doubles imperial chaos through Sibylline prophecy. After n=∞ bifurcations: complete civilizational collapse. Current n=7.3, approaching Sibylline strange attractor at n=8 (2032 CE = 2785 AUC).'
     },
     {
-      id: 'neutron',
-      title: 'Tolman-Oppenheimer-Volkoff Limit',
-      math: 'dP/dr = -(ε + P)(M + 4πr³P/c²)G/(r²(1 - 2GM/rc²))',
-      description: 'Maximum mass before neutron star collapse to black hole. Political neutron degeneracy pressure vs gravitational collapse. Current M/M_TOV = 0.89. Critical at M/M_TOV = 1.'
+      id: 'talmud_wisdom',
+      title: 'Talmudic Wisdom Pressure Limit (Base-60)',
+      math: 'dP/dr = -(Chochmah + P)(Mishna + 4πr³P/c²)G_Elohim/(r²(1 - 2G_Adonai·Mishna/rc²))',
+      description: 'Maximum wisdom (Chochmah) before Talmudic system collapse to Ein Sof singularity. Rabbinic degeneracy pressure vs divine gravitational pull. Current Mishna/Gemara ratio = 0.89. Critical at unity per Pirkei Avot teachings.'
     },
     {
-      id: 'hawking',
-      title: 'Bekenstein-Hawking Entropy',
-      math: 'S = (k_B c³ A)/(4ℏG) = k_B(A/4l_p²) where A = 16πG²M²/c⁴',
-      description: 'Black hole entropy proportional to event horizon area (not volume!). Information paradox: entropy increase strips degrees of freedom. Hawking radiation τ = 5120πG²M³/(ℏc⁴) gives evaporation time.'
+      id: 'xibalba_entropy',
+      title: 'Xibalba Underworld Entropy (Base-20)',
+      math: 'S_{Xibalba} = (k_Itzamna·c³·A)/(4ℏ·Kukulkan) = k_B(A/4l_{Hunab}²) where A = 20π·Kukulkan²M²/c⁴',
+      description: 'Xibalba entropy proportional to underworld boundary area per Popol Vuh. Information paradox: souls crossing to Xibalba lose memory degrees of freedom. Kukulkan radiation gives spiritual evaporation time until next Baktun cycle reset.'
     },
     {
-      id: 'penrose',
-      title: 'Penrose Conformal Cyclic Cosmology',
-      math: 'Ω = ∫∫ W_{αβγδ}W^{αβγδ}√-g d⁴x → ℐ⁺ ≅ ℐ⁻',
-      description: 'Weyl curvature hypothesis: Universe cycles through aeons. Future infinity (ℐ⁺) conformally equivalent to past infinity (ℐ⁻). Conformal boundary navigation between cycles. Current aeon ending 2041.'
+      id: 'vedic_cycles',
+      title: 'Vedic Kalpa Cyclic Cosmology (Base-10)',
+      math: 'Ω_{Kalpa} = ∫∫ Brahman_{αβγδ}Brahman^{αβγδ}√-g d⁴x → Pralaya⁺ ≅ Srishti⁻',
+      description: 'Brahman curvature hypothesis from Vedas: Universe cycles through Kalpas (aeons). Future dissolution (Pralaya) conformally equivalent to past creation (Srishti). Conformal navigation between Yugas per Puranic cycles. Current Kali Yuga ending approaches.'
     },
     {
-      id: 'kerr',
-      title: 'Kerr Rotating Black Hole',
-      math: 'ds² = -(1-r_s r/ρ²)c²dt² + (ρ²/Δ)dr² + ρ²dθ² + sin²θ(r²+a²+r_s ra²sin²θ/ρ²)dφ² - (2r_s ra sin²θ/ρ²)c dt dφ',
-      description: 'Rotating political singularity. Angular momentum a = J/Mc (relativistic rotation). Ergosphere allows energy extraction (Penrose process). Frame dragging prevents escape at a/M > 1.'
+      id: 'tao_vortex',
+      title: 'Tao Te Ching Rotating Vortex (Base-2)',
+      math: 'ds² = -(1-Dao_s r/ρ²)c²dt² + (ρ²/Δ_Wu)dr² + ρ²dθ² + sin²θ(r²+Te²+Dao_s r·Te²sin²θ/ρ²)dφ² - (2Dao_s r·Te sin²θ/ρ²)c dt dφ',
+      description: 'Rotating Dao singularity per Lao Tzu teachings. Angular momentum Te = virtue/mass (spiritual rotation). Wu Wei sphere allows energy extraction through effortless action. Frame dragging by Dao prevents escape when virtue exceeds unity.'
     },
     {
-      id: 'vacuum',
-      title: 'False Vacuum Decay',
-      math: 'Γ/V = Ae^{-B/ℏ} where B = ∫₀^{r₀} dr·2π²r³|dφ/dr|√(2V(φ))',
-      description: 'Probability of vacuum decay to true ground state. Current metastable (false democracy). Bubble nucleation rate Γ. If bubble forms, expands at c, destroying everything. B = bounce action.'
+      id: 'aeneid_decay',
+      title: 'Roman Imperium Vacuum Decay (Base-12)',
+      math: 'Γ/V = Fortuna·e^{-Virtus/ℏ} where Virtus = ∫₀^{r₀} dr·12π²r³|dΦ_{Fatum}/dr|√(2V_{Imperium}(Φ))',
+      description: 'Probability of imperial decay to true res publica per Aeneid prophecy. Current metastable principatus (false republic). Sibylline bubble nucleation rate. If Fortuna bubble forms, expands destroying imperium. Virtus = Roman virtue bounce action from Ciceronian ideals.'
     },
     {
-      id: 'holographic',
-      title: 'AdS/CFT Correspondence',
-      math: 'Z_{CFT}[φ₀] = Z_{gravity}[φ|_{∂AdS} = φ₀]',
-      description: 'Holographic principle: (d+1)-dimensional gravity dual to d-dimensional conformal field theory. Political reality is projection from boundary. Information on boundary determines bulk dynamics.'
+      id: 'kabbalah_sefirot',
+      title: 'Kabbalistic Sefirot Correspondence (Base-60)',
+      math: 'Z_{Malkhut}[φ₀] = Z_{Ayn_Sof}[φ|_{∂Pardes} = φ₀]',
+      description: 'Kabbalistic principle: 4-world (Arba Olamot) Ein Sof dual to 3-world manifest Sefirot field theory. Political reality is projection from Keter boundary. Information on Tree of Life boundary determines Tikkun Olam (world repair) dynamics per Zohar teachings.'
     },
     {
-      id: 'unified',
-      title: 'M-Theory 11-Dimensional Unification',
-      math: 'S = (1/2κ₁₁²)∫d¹¹x√-g[R - ½|F₄|² - (1/48)C₃∧F₄∧F₄] + S_{M2} + S_{M5}',
-      description: '11D supergravity: 7 compactified (Calabi-Yau) + 3 space + 1 time. M2-branes (sheets) and M5-branes (5D). Higher-dimensional observation. String coupling g_s → ∞ reveals M-theory.'
+      id: 'unified_dharma',
+      title: 'Multi-Civilization Dharma Unification (All Bases)',
+      math: 'S_{Dharma} = (1/2κ_{Om}²)∫d¹¹x√-g[R_{Torah} - ½|Popol₄|² - (1/48)Vedas₃∧I_Ching₄∧Aeneid₄] + S_{Babylon2} + S_{Rome5}',
+      description: '11D spiritual gravity: 7 hidden worlds + 3 manifest + 1 eternal time. Torah-branes (sheets of law) and Aeneid-branes (5D destiny). Higher-dimensional observation through mystical texts. When spiritual coupling approaches infinity, unified dharma theory emerges across all 5 civilizations.'
     }
   ];
 
